@@ -1,31 +1,25 @@
-# EDLine Parallel
-A parallel implementation of EDLine algorithm which based on the `Line Segment Detector` module of [opencv_contrib](https://github.com/opencv/opencv_contrib). Compared to the original version, the parallel one results in a almost 50% time reduction on PC with 4 cores CPU.
-
-Related project: [Line Matching](https://github.com/HanjieLuo/line_matching)
+# EDLine-py
+Forked from [this](https://github.com/HanjieLuo/EDLine_parallel)
 
 ![test image](./data/result.png)
 
+## Update
+- added python binding
+
 ## Requirements ##
-The code is tested on Ubuntu 14.04. It requires the following tools and libraries: CMake, OpenCV 3.4. 
+The code is tested on Debian GNU/Linux 10. It requires the following tools and libraries: `python3.8`, `pybind11`, `OpenCV 3.4.13`.
 
 ## Building ##
 
-```
-#!bash
-
-cd EDLine_parallel
-mkdir build
-cd build
-cmake  ..
-make
+```bash
+# `pwd` == project_root
+pip install pybind11
+bash setup.sh
+ldconfig
 ```
 
 Test:
 
+```bash
+PYTHONPATH=. python test/demo.py
 ```
-#!bash
-./bin/test_edline_detector
-```
-
-## Contact information ##
-Hanjie Luo [luohanjie@gmail.com](mailto:luohanjie@gmail.com)

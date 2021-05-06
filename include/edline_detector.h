@@ -9,6 +9,16 @@
 #include <vector>
 
 #include "line.h"
+#include "ndarray_converter.h"
+#include <pybind11/pybind11.h>
+#include <pybind11/stl_bind.h>
+
+
+namespace py = pybind11;
+
+
+PYBIND11_MAKE_OPAQUE(std::vector<Line>);
+
 
 struct Pixel {
     unsigned int x;  //X coordinate
@@ -421,5 +431,40 @@ class EDLineDetector {
         cv::Mat dyImg;   //store the dyImg;
     };
 };
+
+
+PYBIND11_MODULE(edline, m){
+  py::bind_vector<std::vector<Line>>(m, "LineList");
+  py::class_<EDLineDetector>(m, "EDLine")
+    .def(py::init([](int ksize,
+                     float sigma,
+                     float gradientThreshold,
+                     float anchorThreshold,
+                     int scanIntervals,
+                     int minLineLen,
+                     double lineFitErrThreshold){
+      EDLineParam param = {
+        ksize,
+        sigma,
+        gradientThreshold,
+        anchorThreshold,
+        scanIntervals,
+        minLineLen,
+        lineFitErrThreshold};
+      return new EDLineDetector(param);
+    }))
+    .def("detect", &EDLineDetector::EDline);
+
+  py::class_<Line>(m, "Line")
+    .def(py::init<>())
+    .def_readwrite("endpoint", &Line::line_endpoint)
+    .def_readwrite("equation", &Line::line_equation)
+    .def_readwrite("center", &Line::center)
+    .def_readwrite("length", &Line::length)
+    .def_readwrite("kps", &Line::kps)
+    .def_readwrite("kps_init", &Line::kps_init)
+    .def_readwrite("dirs", &Line::dirs);
+}
+//std::array<float, 4>, std::array<double, 3>, std::array<float, 2>, float, std::vector<cv::Point2f>, std::vector<cv::Point2f>, std::vector<cv::Vec2f>
 
 #endif /* EDLINEDETECTOR_PARALLEL_HH_ */
