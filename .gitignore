@@ -1,4 +1,6 @@
 *.so
 *.egg-info*
+*.npy
 *.png
 build
+.DS_Store
