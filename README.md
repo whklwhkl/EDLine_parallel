@@ -8,7 +8,7 @@ Forked from [this](https://github.com/HanjieLuo/EDLine_parallel)
 - added web [api](api/readme.md)
 
 ## Requirements ##
-The code is tested on Debian GNU/Linux 10. It requires the following tools and libraries: `python3.8`, `pybind11`, `OpenCV 3.4.13`.
+The code is tested on Debian GNU/Linux 10. It requires the following tools and libraries: *python3.8*, *pybind11*, *Numpy*, *OpenCV 3.4.13*.
 
 ## Building ##
 
@@ -43,4 +43,18 @@ Test:
 
 ```bash
 PYTHONPATH=. python test/demo.py
+```
+
+## Known issues ##
+*OpenCV* that is installed with `pip` may not work with this repo.
+install with *CMake* instead:
+```
+# assuming numpy has been installed
+git clone -b 3.4.13 https://github.com/opencv/opencv.git
+cd opencv
+mkdir build
+cd build
+cmake .. -DPYTHON3_EXECUTABLE=`which python`
+make -j`nproc`
+make install
 ```
