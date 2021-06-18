@@ -6,18 +6,15 @@ Forked from [this](https://github.com/HanjieLuo/EDLine_parallel)
 ## Update
 - added python binding
 - added web [api](api/readme.md)
+- install with *cmake*
 
 ## Requirements ##
 The code is tested on Debian GNU/Linux 10. It requires the following tools and libraries: *python3.8*, *pybind11*, *Numpy*, *OpenCV 3.4.13*.
 
-## Building ##
-
+## Installation ##
+in the project root, execute the following command in your terminal
 ```bash
-# `pwd` == project_root
-pip install pybind11
-bash setup.sh
-ldconfig
-python setup.py install
+pip install .
 ```
 
 ## Usage ##

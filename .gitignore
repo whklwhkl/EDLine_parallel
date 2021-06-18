@@ -3,4 +3,5 @@
 *.npy
 *.png
 build
+dist
 .DS_Store
